@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import growingecosystem from "../assets/growing-ecosystem-firstwave.avif";
+import growingecosystem from "../assets/images/growing-ecosystem-firstwave.jpg";
+import { BlurredImage } from "./ui/blurred-image";
 
 interface MetricProps {
   value: string;
@@ -94,7 +95,7 @@ export function ImpactSection() {
           {/* Impact Visualization */}
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-up">
-              <img
+              <BlurredImage
                 src={growingecosystem}
                 alt="Technology innovation"
                 className="rounded-xl shadow-2xl w-full h-auto"

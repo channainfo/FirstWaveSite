@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from "@/hooks/use-theme";
 import WaveBackground from './wave-background';
-import heroImage from '../assets/hero-wave.avif'
+import heroImage from '../assets/images/hero-firstwave.jpg';
+import { BlurredImage } from './ui/blurred-image';
 
 export function HeroSection() {
   const { toggleTheme, theme } = useTheme();
@@ -25,8 +26,9 @@ export function HeroSection() {
 
       {/* Background Image */}
       <div className="absolute inset-0 opacity-10" style={{ zIndex: 2 }}>
-        <img
+        <BlurredImage
           src={heroImage}
+          allowToggle={false}
           alt="Entrepreneurs collaborating"
           className="w-full h-full object-cover"
         />

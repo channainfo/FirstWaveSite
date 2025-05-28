@@ -1,4 +1,5 @@
-import initiativeImage from '../assets/initiative-waver.avif';
+import initiativeImage from '../assets/images/initiative-firstwave.jpg';
+import { BlurredImage } from './ui/blurred-image';
 export function AboutSection() {
   return (
     <section id="about" className="py-20 bg-gray-50 dark:bg-slate-900">
@@ -97,7 +98,7 @@ export function AboutSection() {
                 </div>
               </div>
               <div className="animate-slide-up">
-                <img
+                <BlurredImage
                   src={initiativeImage}
                   alt="Team collaboration"
                   className="rounded-xl shadow-2xl w-full h-auto"

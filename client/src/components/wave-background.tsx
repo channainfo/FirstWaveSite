@@ -7,7 +7,6 @@ interface Wave {
   speed: number;
   offset: number;
   opacity: number;
-  phaseShift: number;
 }
 
 interface Particle {
@@ -16,6 +15,7 @@ interface Particle {
   size: number;
   vx: number;
   vy: number;
+  rotation: number; // For droplet orientation
   life: number;
   maxLife: number;
 }
@@ -47,25 +47,26 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
 
     let time: number = 0;
     const waves: Wave[] = [
-      { amplitude: 80, frequency: 0.006, speed: 0.01, offset: 0, opacity: 0.2, phaseShift: 0.1 }, // Increased amplitude
-      { amplitude: 60, frequency: 0.009, speed: 0.015, offset: Math.PI / 4, opacity: 0.25, phaseShift: 0.15 }, // Increased amplitude
-      { amplitude: 90, frequency: 0.004, speed: 0.008, offset: Math.PI / 2, opacity: 0.18, phaseShift: 0.08 }, // Increased amplitude
-      { amplitude: 100, frequency: 0.0025, speed: 0.006, offset: Math.PI, opacity: 0.22, phaseShift: 0.12 } // Increased amplitude
+      { amplitude: 60, frequency: 0.008, speed: 0.015, offset: 0, opacity: 0.15 },
+      { amplitude: 45, frequency: 0.012, speed: 0.02, offset: Math.PI / 3, opacity: 0.2 },
+      { amplitude: 80, frequency: 0.006, speed: 0.012, offset: Math.PI / 2, opacity: 0.1 },
+      { amplitude: 100, frequency: 0.004, speed: 0.01, offset: Math.PI, opacity: 0.25 }
     ];
 
     const particles: Particle[] = [];
 
-    const createParticle = (x: number, y: number): void => {
-      const angle = Math.random() * Math.PI / 2;
-      const speed = 0.5 + Math.random() * 1;
+    const createParticle = (x: number, y: number, intensity: number = 1): void => {
+      const angle = Math.random() * Math.PI / 2; // Upper hemisphere for realistic splash
+      const speed = (0.8 + Math.random() * 1.2) * intensity; // Scale with intensity
       particles.push({
         x,
         y,
-        size: 1.5 + Math.random() * 2.5,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 1.2,
+        size: 2 + Math.random() * 3 * intensity, // Size varies with intensity
+        vx: Math.cos(angle) * speed * (0.8 + Math.random() * 0.4), // Randomize spread
+        vy: Math.sin(angle) * speed - (1.5 + Math.random() * 1), // Upward bias
+        rotation: Math.random() * Math.PI / 4, // Slight random rotation
         life: 0,
-        maxLife: 12 + Math.random() * 12
+        maxLife: 15 + Math.random() * 15 // Shorter lifetime for realism
       });
     };
 
@@ -74,7 +75,10 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.06;
+        p.vy += 0.08; // Gentle gravity
+        p.vx *= 0.98; // Air drag
+        p.vy *= 0.98; // Air drag
+        p.rotation += 0.02; // Slight rotation over time
         p.life += 1;
 
         if (p.life >= p.maxLife) {
@@ -84,15 +88,37 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
     };
 
     const drawParticles = (): void => {
-      ctx.fillStyle = theme === 'dark' ? 'rgba(6, 182, 212, 0.5)' : 'rgba(251, 191, 36, 0.5)';
       particles.forEach(p => {
         const opacity = 1 - p.life / p.maxLife;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rotation);
+
+        // Gradient for wet look
+        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size);
+        gradient.addColorStop(0, theme === 'dark' ? `rgba(6, 182, 212, ${opacity * 0.8})` : `rgba(251, 191, 36, ${opacity * 0.8})`);
+        gradient.addColorStop(1, theme === 'dark' ? `rgba(6, 182, 212, ${opacity * 0.3})` : `rgba(251, 191, 36, ${opacity * 0.3})`);
+
+        ctx.fillStyle = gradient;
         ctx.globalAlpha = opacity;
+
+        // Draw teardrop shape
         ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.quadraticCurveTo(p.x + p.size * 0.4, p.y - p.size * 1.2, p.x, p.y - p.size * 1.8);
-        ctx.quadraticCurveTo(p.x - p.size * 0.4, p.y - p.size * 1.2, p.x, p.y);
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(p.size * 0.4, -p.size * 1.2, 0, -p.size * 1.8);
+        ctx.quadraticCurveTo(-p.size * 0.4, -p.size * 1.2, 0, 0);
         ctx.fill();
+
+        // Inner glow for translucency
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+        ctx.globalAlpha = opacity * 0.5;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.quadraticCurveTo(p.size * 0.2, -p.size * 0.6, 0, -p.size * 0.9);
+        ctx.quadraticCurveTo(-p.size * 0.2, -p.size * 0.6, 0, 0);
+        ctx.fill();
+
+        ctx.restore();
         ctx.globalAlpha = 1;
       });
     };
@@ -105,21 +131,17 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
 
       waves.forEach((wave: Wave, index: number) => {
         ctx.beginPath();
-        ctx.moveTo(0, canvas.height);
+        ctx.moveTo(0, canvas.height / window.devicePixelRatio);
 
-        for (let x = 0; x <= canvas.width / window.devicePixelRatio; x += 1) {
-          const t = time * wave.speed + wave.offset;
-          const baseY = canvas.height / window.devicePixelRatio * 0.65; // Lowered baseY to accommodate taller waves
-          const y = baseY +
-            Math.sin(x * wave.frequency + t) * wave.amplitude * (1 - 0.2 * Math.sin(t * wave.phaseShift)) +
-            Math.sin(x * wave.frequency * 0.7 + t * 1.1) * wave.amplitude * 0.4 + // Increased secondary amplitude
-            Math.cos(x * wave.frequency * 0.4 + t * 0.9) * wave.amplitude * 0.2 + // Increased tertiary amplitude
-            (Math.random() - 0.5) * 3;
+        for (let x = 0; x <= canvas.width / window.devicePixelRatio; x += 3) {
+          const y = (canvas.height / window.devicePixelRatio) * 0.7 +
+            Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude +
+            Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 1.5 + wave.offset) * wave.amplitude * 0.3;
 
-          const yNext = baseY +
-            Math.sin((x + 1) * wave.frequency + t) * wave.amplitude * (1 - 0.2 * Math.sin(t * wave.phaseShift)) +
-            Math.sin((x + 1) * wave.frequency * 0.7 + t * 1.1) * wave.amplitude * 0.4 +
-            Math.cos((x + 1) * wave.frequency * 0.4 + t * 0.9) * wave.amplitude * 0.2;
+          // Calculate derivative for crest detection
+          const yNext = (canvas.height / window.devicePixelRatio) * 0.7 +
+            Math.sin((x + 1) * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude +
+            Math.sin((x + 1) * wave.frequency * 0.5 + time * wave.speed * 1.5 + wave.offset) * wave.amplitude * 0.3;
           const dy = yNext - y;
 
           waveYs[index][x] = y;
@@ -136,7 +158,7 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
         ctx.lineTo(0, canvas.height / window.devicePixelRatio);
         ctx.closePath();
 
-        const waveGradient = ctx.createLinearGradient(0, canvas.height / window.devicePixelRatio * 0.5, 0, canvas.height / window.devicePixelRatio);
+        const waveGradient = ctx.createLinearGradient(0, (canvas.height / window.devicePixelRatio) * 0.5, 0, canvas.height / window.devicePixelRatio);
         if (theme === 'dark') {
           if (index === 0) {
             waveGradient.addColorStop(0, `rgba(6, 182, 212, ${wave.opacity})`);
@@ -163,23 +185,27 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
         ctx.fill();
 
         if (index === 0) {
-          ctx.shadowColor = theme === 'dark' ? 'rgba(6, 182, 212, 0.25)' : 'rgba(251, 191, 36, 0.25)';
-          ctx.shadowBlur = 10;
+          ctx.shadowColor = theme === 'dark' ? 'rgba(6, 182, 212, 0.2)' : 'rgba(251, 191, 36, 0.2)';
+          ctx.shadowBlur = 15;
           ctx.fill();
           ctx.shadowBlur = 0;
         }
       });
 
-      for (let x = 0; x <= canvas.width / window.devicePixelRatio; x += 20) {
+      // Detect crests and collisions for splashes
+      for (let x = 0; x <= canvas.width / window.devicePixelRatio; x += 10) {
         for (let i = 0; i < waves.length - 1; i++) {
           for (let j = i + 1; j < waves.length; j++) {
             const y1 = waveYs[i][x];
             const y2 = waveYs[j][x];
             const dy1 = waveDerivs[i][x];
             const dy2 = waveDerivs[j][x];
-            if (y1 && y2 && (Math.abs(y1 - y2) < 6 || (Math.abs(dy1) < 0.1 && Math.abs(dy2) < 0.1))) {
-              if (Math.random() < 0.03) {
-                createParticle(x, Math.min(y1, y2));
+            if (y1 && y2) {
+              const intensity = Math.min(1 + Math.abs(dy1 + dy2) * 5, 2); // Intensity based on slope
+              if (Math.abs(y1 - y2) < 10 || (Math.abs(dy1) < 0.15 && Math.abs(dy2) < 0.15)) {
+                if (Math.random() < 0.08) { // Reduced probability
+                  createParticle(x, Math.min(y1, y2), intensity);
+                }
               }
             }
           }
@@ -189,7 +215,7 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
       updateParticles();
       drawParticles();
 
-      time += 0.4;
+      time += 1;
       animationRef.current = requestAnimationFrame(animate);
     };
 

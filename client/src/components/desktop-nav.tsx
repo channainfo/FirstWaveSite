@@ -1,8 +1,8 @@
 import { useTheme } from "@/hooks/use-theme";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
-import firstwaveLogo from "../assets/firstwave-logo.png";
+import firstwaveLogo from "../assets/logos/firstwave-logo.png";
 
-const sections = ["home", "about", "how-it-works", "team", "impact"];
+const sections = ["home", "about", "how-it-works", "team", "impact", "contact"];
 
 const sectionLabels = {
   home: "Home",
@@ -10,7 +10,7 @@ const sectionLabels = {
   "how-it-works": "How It Works",
   team: "Team",
   impact: "Impact",
-  contact: "Contact",
+  contact: "Contact Us",
 };
 
 export function DesktopNav() {
@@ -26,6 +26,8 @@ export function DesktopNav() {
         top: offsetTop,
         behavior: "smooth",
       });
+      // Update the URL with the section ID (e.g., #home, #team)
+      window.history.pushState(null, "", `#${sectionId}`);
     }
   };
 
@@ -58,28 +60,36 @@ export function DesktopNav() {
                 const isActive = activeSection === section;
 
                 return (
-                  <button
+                  <a
                     key={section}
-                    onClick={() => scrollToSection(section)}
+                    href={`#${section}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection(section);
+                    }}
                     className={`transition-colors ${isActive
-                      ? "text-purple-500 dark:text-purple-400"
-                      : "hover:text-purple-500 dark:hover:text-purple-400"
+                      ? "text-purple-500 dark:text-purple-400 font-semibold uppercase"
+                      : "hover:text-purple-500 dark:hover:text-purple-400 font-semibold uppercase"
                       }`}
                   >
                     {label}
-                  </button>
+                  </a>
                 );
               })}
             </div>
 
-            {/* Mobile Hamburger Menu */}
+            {/* Mobile "Contact Us" Link */}
             <div className="md:hidden flex items-center space-x-2">
-              <button
-                onClick={() => scrollToSection("contact")}
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("contact");
+                }}
                 className="bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-600 transition-colors text-sm"
               >
-                Contact
-              </button>
+                Contact Us
+              </a>
             </div>
 
             {/* Theme Toggle */}

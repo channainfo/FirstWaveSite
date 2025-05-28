@@ -52,7 +52,7 @@ export function ContactSection() {
               </a>
             </div>
             <p className="text-lg opacity-90">
-              Email us at: <span className="font-bold">team at firstwave.asia</span>
+              Email us: <span className="font-bold">team at firstwave.asia</span>
             </p>
           </div>
 

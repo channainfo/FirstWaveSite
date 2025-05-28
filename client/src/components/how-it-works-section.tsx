@@ -1,4 +1,5 @@
-import howitworksImage from '../assets/how-it-works-firstwave.avif';
+import howitworksImage from '../assets/images/how-it-works-firstwave.jpg';
+import { BlurredImage } from './ui/blurred-image';
 export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="py-20 bg-white dark:bg-slate-800">
@@ -70,7 +71,7 @@ export function HowItWorksSection() {
           <div className="mt-16 animate-slide-up">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <img
+                <BlurredImage
                   src={howitworksImage}
                   alt="Modern office in Cambodia"
                   className="rounded-xl shadow-2xl w-full h-auto"
