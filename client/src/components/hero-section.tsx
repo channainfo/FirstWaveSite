@@ -1,128 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useTheme } from "@/hooks/use-theme";
-
-interface Wave {
-  amplitude: number;
-  frequency: number;
-  speed: number;
-  offset: number;
-  opacity: number;
-}
-
-const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resizeCanvas = (): void => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    let time: number = 0;
-    const waves: Wave[] = [
-      { amplitude: 60, frequency: 0.008, speed: 0.015, offset: 0, opacity: 0.15 },
-      { amplitude: 45, frequency: 0.012, speed: 0.02, offset: Math.PI / 3, opacity: 0.2 },
-      { amplitude: 80, frequency: 0.006, speed: 0.012, offset: Math.PI / 2, opacity: 0.1 },
-      { amplitude: 100, frequency: 0.004, speed: 0.01, offset: Math.PI, opacity: 0.25 }
-    ];
-
-    const animate = (): void => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      waves.forEach((wave: Wave, index: number) => {
-        ctx.beginPath();
-        ctx.moveTo(0, canvas.height);
-
-        // Create wave path
-        for (let x = 0; x <= canvas.width; x += 3) {
-          const y = canvas.height * 0.7 +
-            Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude +
-            Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 1.5 + wave.offset) * wave.amplitude * 0.3;
-
-          if (x === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
-        }
-
-        ctx.lineTo(canvas.width, canvas.height);
-        ctx.lineTo(0, canvas.height);
-        ctx.closePath();
-
-        // Create wave gradient based on theme
-        const waveGradient = ctx.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
-
-        if (theme === 'dark') {
-          if (index === 0) {
-            // Primary wave - cyan tones
-            waveGradient.addColorStop(0, `rgba(6, 182, 212, ${wave.opacity})`);
-            waveGradient.addColorStop(0.5, `rgba(8, 145, 178, ${wave.opacity * 0.8})`);
-            waveGradient.addColorStop(1, `rgba(21, 94, 117, ${wave.opacity * 0.6})`);
-          } else {
-            // Supporting waves - blue and purple tones
-            waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.opacity})`);
-            waveGradient.addColorStop(0.5, `rgba(99, 102, 241, ${wave.opacity * 0.8})`);
-            waveGradient.addColorStop(1, `rgba(79, 70, 229, ${wave.opacity * 0.6})`);
-          }
-        } else {
-          if (index === 0) {
-            // Primary wave - warmer tones for light theme
-            waveGradient.addColorStop(0, `rgba(251, 191, 36, ${wave.opacity})`); // yellow-400
-            waveGradient.addColorStop(0.5, `rgba(245, 158, 11, ${wave.opacity * 0.8})`); // amber-500
-            waveGradient.addColorStop(1, `rgba(217, 119, 6, ${wave.opacity * 0.6})`); // amber-600
-          } else {
-            // Supporting waves - orange and purple tones
-            waveGradient.addColorStop(0, `rgba(249, 115, 22, ${wave.opacity})`); // orange-500
-            waveGradient.addColorStop(0.5, `rgba(147, 51, 234, ${wave.opacity * 0.8})`); // purple-600
-            waveGradient.addColorStop(1, `rgba(126, 34, 206, ${wave.opacity * 0.6})`); // purple-700
-          }
-        }
-
-        ctx.fillStyle = waveGradient;
-        ctx.fill();
-
-        // Add glow effect for primary wave
-        if (index === 0) {
-          ctx.shadowColor = theme === 'dark' ? 'rgba(6, 182, 212, 0.2)' : 'rgba(251, 191, 36, 0.2)';
-          ctx.shadowBlur = 15;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-      });
-
-      time += 1;
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [theme]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 1 }}
-    />
-  );
-};
+import WaveBackground from './wave-background';
+import heroImage from '../assets/hero-wave.avif'
 
 export function HeroSection() {
   const { toggleTheme, theme } = useTheme();
@@ -147,7 +26,7 @@ export function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 opacity-10" style={{ zIndex: 2 }}>
         <img
-          src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&h=1080"
+          src={heroImage}
           alt="Entrepreneurs collaborating"
           className="w-full h-full object-cover"
         />

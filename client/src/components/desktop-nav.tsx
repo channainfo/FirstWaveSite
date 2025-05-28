@@ -1,5 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
+import firstwaveLogo from "../assets/firstwave-logo.png";
 
 const sections = ["home", "about", "how-it-works", "team", "impact"];
 
@@ -33,10 +34,21 @@ export function DesktopNav() {
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">F</span>
-            </div>
-            <span className="text-xl font-bold text-gradient">FirstWave</span>
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("home");
+              }}
+              className="block"
+            >
+              <img
+                src={firstwaveLogo}
+                alt="FirstWave Logo"
+                className={`w-10 h-10 rounded-lg object-contain transition-transform duration-300 hover:scale-110 hover:rotate-6 ${theme === "dark" ? "filter brightness-125" : ""
+                  }`}
+              />
+            </a>
           </div>
           <nav className="flex items-center space-x-4 md:space-x-8">
             {/* Desktop Navigation Links */}

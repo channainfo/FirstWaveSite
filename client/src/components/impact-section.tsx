@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import growingecosystem from "../assets/growing-ecosystem-firstwave.avif";
 
 interface MetricProps {
   value: string;
@@ -19,9 +20,8 @@ function AnimatedMetric({ value, label, icon, color, delay = 0 }: MetricProps) {
   return (
     <div className="text-center animate-slide-up">
       <div
-        className={`w-24 h-24 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg ${
-          isVisible ? "animate-float" : ""
-        }`}
+        className={`w-24 h-24 gradient-bg rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg ${isVisible ? "animate-float" : ""
+          }`}
         style={{ animationDelay: `${delay}ms` }}
       >
         <i className={`${icon} text-white text-3xl`}></i>
@@ -95,7 +95,7 @@ export function ImpactSection() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-up">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+                src={growingecosystem}
                 alt="Technology innovation"
                 className="rounded-xl shadow-2xl w-full h-auto"
               />

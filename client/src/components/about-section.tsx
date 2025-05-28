@@ -1,3 +1,4 @@
+import initiativeImage from '../assets/initiative-waver.avif';
 export function AboutSection() {
   return (
     <section id="about" className="py-20 bg-gray-50 dark:bg-slate-900">
@@ -97,7 +98,7 @@ export function AboutSection() {
               </div>
               <div className="animate-slide-up">
                 <img
-                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+                  src={initiativeImage}
                   alt="Team collaboration"
                   className="rounded-xl shadow-2xl w-full h-auto"
                 />

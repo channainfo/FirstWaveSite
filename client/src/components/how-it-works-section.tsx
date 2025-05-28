@@ -1,3 +1,4 @@
+import howitworksImage from '../assets/how-it-works-firstwave.avif';
 export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="py-20 bg-white dark:bg-slate-800">
@@ -70,7 +71,7 @@ export function HowItWorksSection() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
                 <img
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600"
+                  src={howitworksImage}
                   alt="Modern office in Cambodia"
                   className="rounded-xl shadow-2xl w-full h-auto"
                 />
