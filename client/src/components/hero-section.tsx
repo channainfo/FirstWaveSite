@@ -4,11 +4,19 @@ import WaveBackground from './wave-background';
 import heroImage from '../assets/images/hero-firstwave.jpg';
 import { BlurredImage } from './ui/blurred-image';
 import { useInView } from '@/hooks/use-in-view';
+import TagManager from 'react-gtm-module';
 
 export function HeroSection() {
   const { toggleTheme, theme } = useTheme();
 
   const scrollToSection = (sectionId: string) => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: "scroll_click",
+        click_label: 'ToSection',
+      },
+    });
+
     const section = document.getElementById(sectionId);
     if (section) {
       const headerHeight = 80;

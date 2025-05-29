@@ -1,5 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
 import firstwaveLogo from "../assets/logos/firstwave-logo-landscape.png";
+import TagManager from "react-gtm-module";
 
 const sections = ["home", "about", "how-it-works", "team", "impact", "contact"];
 
@@ -17,6 +18,14 @@ export function Footer() {
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
+
+    TagManager.dataLayer({
+      dataLayer: {
+        event: "bottom_nav_click",
+        click_label: sectionId,
+      },
+    });
+
     if (section) {
       const headerHeight = 80;
       const offsetTop = section.offsetTop - headerHeight;

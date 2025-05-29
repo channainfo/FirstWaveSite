@@ -1,5 +1,6 @@
 import { useInView } from "@/hooks/use-in-view";
 import React, { useState } from "react";
+import TagManager from "react-gtm-module";
 
 interface TeamMember {
   name: string;
@@ -140,7 +141,13 @@ const skillColors = [
 export function TeamSection() {
   const [expandedBios, setExpandedBios] = useState<{ [key: number]: boolean }>({});
 
-  const toggleBio = (index: number) => {
+  const toggleBio = (index: number, name: string) => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: "bio_click",
+        click_label: `${index}-${name}`,
+      },
+    });
     setExpandedBios((prev) => ({
       ...prev,
       [index]: !prev[index],
@@ -189,7 +196,7 @@ export function TeamSection() {
                       </p>
                       {showToggle && (
                         <button
-                          onClick={() => toggleBio(index)}
+                          onClick={() => toggleBio(index, member.name)}
                           className="mt-2 text-purple-500 dark:text-purple-400 hover:text-purple-600 dark:hover:text-purple-300 font-semibold text-sm focus:outline-none"
                         >
                           {isExpanded ? "Read Less" : "Read More"}

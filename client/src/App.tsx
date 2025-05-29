@@ -8,6 +8,7 @@ import Home from "@/pages/home";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import TagManager from "react-gtm-module";
+import LinkTracker from "./components/link_tracker";
 
 function Router() {
   return (
@@ -42,6 +43,7 @@ function App() {
       <ThemeProvider>
         <TooltipProvider>
           <PageTracker />
+          <LinkTracker />
           <Toaster />
           <Router />
         </TooltipProvider>

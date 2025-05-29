@@ -1,6 +1,7 @@
 import { useTheme } from "@/hooks/use-theme";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import firstwaveLogo from "../assets/logos/firstwave-logo.png";
+import TagManager from "react-gtm-module";
 
 const sections = ["home", "about", "how-it-works", "team", "impact", "contact"];
 
@@ -18,6 +19,14 @@ export function DesktopNav() {
   const activeSection = useScrollSpy(sections);
 
   const scrollToSection = (sectionId: string) => {
+
+    TagManager.dataLayer({
+      dataLayer: {
+        event: "nav_click",
+        click_label: sectionId,
+      },
+    });
+
     const section = document.getElementById(sectionId);
     if (section) {
       const headerHeight = 80;

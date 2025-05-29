@@ -1,5 +1,6 @@
 // components/ui/blurred-image.tsx
 import React, { useState } from "react";
+import TagManager from "react-gtm-module";
 
 interface BlurredImageProps {
   src: string;
@@ -19,6 +20,13 @@ export function BlurredImage({
   const [isBlurred, setIsBlurred] = useState(initiallyBlurred);
 
   const handleClick = () => {
+    TagManager.dataLayer({
+      dataLayer: {
+        event: "image_click",
+        click_label: alt,
+      },
+    });
+
     if (allowToggle) {
       setIsBlurred((prev) => !prev); // Toggle blur state only if allowToggle is true
     }

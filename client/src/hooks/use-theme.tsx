@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import TagManager from "react-gtm-module";
 
 type Theme = "dark" | "light";
 
@@ -46,6 +47,14 @@ export function ThemeProvider({
     },
     toggleTheme: () => {
       const newTheme = theme === "dark" ? "light" : "dark";
+
+      TagManager.dataLayer({
+        dataLayer: {
+          event: "toggle_theme_click",
+          click_label: 'newTheme',
+        },
+      });
+
       localStorage.setItem(storageKey, newTheme);
       setTheme(newTheme);
     },
