@@ -15,7 +15,6 @@ interface Particle {
   size: number;
   vx: number;
   vy: number;
-  rotation: number; // For droplet orientation
   life: number;
   maxLife: number;
 }
@@ -28,18 +27,12 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true })!;
+    const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
     const resizeCanvas = (): void => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      ctx.scale(dpr, dpr);
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     resizeCanvas();
@@ -55,18 +48,17 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
 
     const particles: Particle[] = [];
 
-    const createParticle = (x: number, y: number, intensity: number = 1): void => {
-      const angle = Math.random() * Math.PI / 2; // Upper hemisphere for realistic splash
-      const speed = (0.8 + Math.random() * 1.2) * intensity; // Scale with intensity
+    const createParticle = (x: number, y: number): void => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 1 + Math.random() * 2;
       particles.push({
         x,
         y,
-        size: 2 + Math.random() * 3 * intensity, // Size varies with intensity
-        vx: Math.cos(angle) * speed * (0.8 + Math.random() * 0.4), // Randomize spread
-        vy: Math.sin(angle) * speed - (1.5 + Math.random() * 1), // Upward bias
-        rotation: Math.random() * Math.PI / 4, // Slight random rotation
+        size: 2 + Math.random() * 3,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 2, // Upward bias for splash
         life: 0,
-        maxLife: 15 + Math.random() * 15 // Shorter lifetime for realism
+        maxLife: 20 + Math.random() * 20
       });
     };
 
@@ -75,10 +67,7 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.08; // Gentle gravity
-        p.vx *= 0.98; // Air drag
-        p.vy *= 0.98; // Air drag
-        p.rotation += 0.02; // Slight rotation over time
+        p.vy += 0.1; // Gravity effect
         p.life += 1;
 
         if (p.life >= p.maxLife) {
@@ -88,64 +77,34 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
     };
 
     const drawParticles = (): void => {
+      ctx.fillStyle = theme === 'dark' ? 'rgba(6, 182, 212, 0.7)' : 'rgba(251, 191, 36, 0.7)';
       particles.forEach(p => {
         const opacity = 1 - p.life / p.maxLife;
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rotation);
-
-        // Gradient for wet look
-        const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size);
-        gradient.addColorStop(0, theme === 'dark' ? `rgba(6, 182, 212, ${opacity * 0.8})` : `rgba(251, 191, 36, ${opacity * 0.8})`);
-        gradient.addColorStop(1, theme === 'dark' ? `rgba(6, 182, 212, ${opacity * 0.3})` : `rgba(251, 191, 36, ${opacity * 0.3})`);
-
-        ctx.fillStyle = gradient;
         ctx.globalAlpha = opacity;
-
-        // Draw teardrop shape
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.quadraticCurveTo(p.size * 0.4, -p.size * 1.2, 0, -p.size * 1.8);
-        ctx.quadraticCurveTo(-p.size * 0.4, -p.size * 1.2, 0, 0);
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
-
-        // Inner glow for translucency
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-        ctx.globalAlpha = opacity * 0.5;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.quadraticCurveTo(p.size * 0.2, -p.size * 0.6, 0, -p.size * 0.9);
-        ctx.quadraticCurveTo(-p.size * 0.2, -p.size * 0.6, 0, 0);
-        ctx.fill();
-
-        ctx.restore();
-        ctx.globalAlpha = 1;
       });
+      ctx.globalAlpha = 1;
     };
 
     const animate = (): void => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Store wave y-coordinates for collision detection
       const waveYs: number[][] = waves.map(() => []);
-      const waveDerivs: number[][] = waves.map(() => []);
 
       waves.forEach((wave: Wave, index: number) => {
         ctx.beginPath();
-        ctx.moveTo(0, canvas.height / window.devicePixelRatio);
+        ctx.moveTo(0, canvas.height);
 
-        for (let x = 0; x <= canvas.width / window.devicePixelRatio; x += 3) {
-          const y = (canvas.height / window.devicePixelRatio) * 0.7 +
+        // Calculate wave path and store y-coordinates
+        for (let x = 0; x <= canvas.width; x += 3) {
+          const y = canvas.height * 0.7 +
             Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude +
             Math.sin(x * wave.frequency * 0.5 + time * wave.speed * 1.5 + wave.offset) * wave.amplitude * 0.3;
 
-          // Calculate derivative for crest detection
-          const yNext = (canvas.height / window.devicePixelRatio) * 0.7 +
-            Math.sin((x + 1) * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude +
-            Math.sin((x + 1) * wave.frequency * 0.5 + time * wave.speed * 1.5 + wave.offset) * wave.amplitude * 0.3;
-          const dy = yNext - y;
-
           waveYs[index][x] = y;
-          waveDerivs[index][x] = dy;
 
           if (x === 0) {
             ctx.moveTo(x, y);
@@ -154,11 +113,12 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
           }
         }
 
-        ctx.lineTo(canvas.width / window.devicePixelRatio, canvas.height / window.devicePixelRatio);
-        ctx.lineTo(0, canvas.height / window.devicePixelRatio);
+        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(0, canvas.height);
         ctx.closePath();
 
-        const waveGradient = ctx.createLinearGradient(0, (canvas.height / window.devicePixelRatio) * 0.5, 0, canvas.height / window.devicePixelRatio);
+        // Create wave gradient based on theme
+        const waveGradient = ctx.createLinearGradient(0, canvas.height * 0.5, 0, canvas.height);
         if (theme === 'dark') {
           if (index === 0) {
             waveGradient.addColorStop(0, `rgba(6, 182, 212, ${wave.opacity})`);
@@ -184,6 +144,7 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
         ctx.fillStyle = waveGradient;
         ctx.fill();
 
+        // Add glow effect for primary wave
         if (index === 0) {
           ctx.shadowColor = theme === 'dark' ? 'rgba(6, 182, 212, 0.2)' : 'rgba(251, 191, 36, 0.2)';
           ctx.shadowBlur = 15;
@@ -192,20 +153,15 @@ const WaveBackground: React.FC<{ theme: string }> = ({ theme }) => {
         }
       });
 
-      // Detect crests and collisions for splashes
-      for (let x = 0; x <= canvas.width / window.devicePixelRatio; x += 10) {
+      // Detect collisions and create splash particles
+      for (let x = 0; x <= canvas.width; x += 10) { // Check every 10px for performance
         for (let i = 0; i < waves.length - 1; i++) {
           for (let j = i + 1; j < waves.length; j++) {
             const y1 = waveYs[i][x];
             const y2 = waveYs[j][x];
-            const dy1 = waveDerivs[i][x];
-            const dy2 = waveDerivs[j][x];
-            if (y1 && y2) {
-              const intensity = Math.min(1 + Math.abs(dy1 + dy2) * 5, 2); // Intensity based on slope
-              if (Math.abs(y1 - y2) < 10 || (Math.abs(dy1) < 0.15 && Math.abs(dy2) < 0.15)) {
-                if (Math.random() < 0.08) { // Reduced probability
-                  createParticle(x, Math.min(y1, y2), intensity);
-                }
+            if (y1 && y2 && Math.abs(y1 - y2) < 10) { // Threshold for "collision"
+              if (Math.random() < 0.1) { // Randomize to avoid excessive particles
+                createParticle(x, Math.min(y1, y2));
               }
             }
           }
