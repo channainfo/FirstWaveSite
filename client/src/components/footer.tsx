@@ -67,7 +67,7 @@ export function Footer() {
                       e.preventDefault();
                       scrollToSection(section);
                     }}
-                    className="text-gray-300 hover:text-white transition-colors duration-200 text-base sm:text-lg font-medium"
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-base sm:text-lg font-medium uppercase"
                   >
                     {label}
                   </a>
@@ -76,19 +76,7 @@ export function Footer() {
             })}
           </ul>
         </nav>
-        <div className="mb-8">
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("contact");
-            }}
-            className="inline-flex items-center justify-center bg-purple-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-purple-700 hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-base sm:text-lg"
-          >
-            <i className="fas fa-rocket mr-2"></i>
-            Get Involved
-          </a>
-        </div>
+
         <p className="text-sm text-gray-500">
           © {currentYear} FirstWave. All rights reserved.
         </p>

@@ -1,3 +1,4 @@
+import { useInView } from "@/hooks/use-in-view";
 import React, { useState } from "react";
 
 interface TeamMember {
@@ -146,8 +147,11 @@ export function TeamSection() {
     }));
   };
 
+  const [ref, isInView] = useInView({ threshold: 0.1 });
+
   return (
-    <section id="team" className="py-20 bg-gray-50 dark:bg-slate-900">
+    <section id="team" ref={ref} className={`py-20 bg-gray-50 dark:bg-slate-900 ${isInView ? "animate-wave-form" : "opacity-0"
+      }`}>
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-slide-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gradient">

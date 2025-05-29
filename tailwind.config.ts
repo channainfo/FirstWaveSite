@@ -79,8 +79,24 @@ export default {
             height: "0",
           },
         },
+        "wave-form": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(30px) scale(0.95)",
+          },
+          "50%": {
+            opacity: "0.5",
+            transform: "translateY(-10px) scale(1.02)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0) scale(1)",
+          },
+        },
       },
       animation: {
+        "wave-form": "wave-form 1s ease-in-out forwards",
+
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

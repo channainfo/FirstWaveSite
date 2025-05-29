@@ -1,8 +1,12 @@
+import { useInView } from '@/hooks/use-in-view';
 import initiativeImage from '../assets/images/initiative-firstwave.jpg';
 import { BlurredImage } from './ui/blurred-image';
 export function AboutSection() {
+  const [ref, isInView] = useInView({ threshold: 0.1 });
+
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-slate-900">
+    <section id="about" className={`py-20 bg-white dark:bg-slate-800 ${isInView ? "animate-wave-form" : "opacity-0"
+      }`} ref={ref}>
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-slide-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gradient">

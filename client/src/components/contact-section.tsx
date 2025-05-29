@@ -1,3 +1,5 @@
+import { useInView } from "@/hooks/use-in-view";
+
 export function ContactSection() {
   const socialLinks = [
     {
@@ -22,8 +24,12 @@ export function ContactSection() {
     },
   ];
 
+  const [ref, isInView] = useInView({ threshold: 0.1 });
+
+
   return (
-    <section id="contact" className="py-20 gradient-bg dark:dark-gradient-bg">
+    <section id="contact" ref={ref} className={`py-20 gradient-bg dark:dark-gradient-bg ${isInView ? "animate-wave-form" : "opacity-0"
+      }`}>
       <div className="container mx-auto px-6 text-center text-white">
         <div className="max-w-4xl mx-auto animate-slide-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">

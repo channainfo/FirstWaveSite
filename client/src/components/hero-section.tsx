@@ -3,6 +3,7 @@ import { useTheme } from "@/hooks/use-theme";
 import WaveBackground from './wave-background';
 import heroImage from '../assets/images/hero-firstwave.jpg';
 import { BlurredImage } from './ui/blurred-image';
+import { useInView } from '@/hooks/use-in-view';
 
 export function HeroSection() {
   const { toggleTheme, theme } = useTheme();
@@ -19,8 +20,12 @@ export function HeroSection() {
     }
   };
 
+  const [ref, isInView] = useInView({ threshold: 0.1 });
+
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center gradient-bg dark:dark-gradient-bg relative overflow-hidden">
+    <section id="home" ref={ref} className={`min-h-screen flex items-center justify-center gradient-bg dark:dark-gradient-bg relative overflow-hidden ${isInView ? "animate-wave-form" : "opacity-0"
+      }`}>
       {/* Wave Animation Background */}
       <WaveBackground theme={theme} />
 

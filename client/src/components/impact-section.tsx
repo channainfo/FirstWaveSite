@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import growingecosystem from "../assets/images/growing-ecosystem-firstwave.jpg";
 import { BlurredImage } from "./ui/blurred-image";
+import { useInView } from "@/hooks/use-in-view";
 
 interface MetricProps {
   value: string;
@@ -72,8 +73,11 @@ export function ImpactSection() {
     },
   ];
 
+  const [ref, isInView] = useInView({ threshold: 0.1 });
+
   return (
-    <section id="impact" className="py-20 bg-white dark:bg-slate-800">
+    <section id="impact" ref={ref} className={`py-20 bg-white dark:bg-slate-800 ${isInView ? "animate-wave-form" : "opacity-0"
+      }`}>
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-slide-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gradient">
