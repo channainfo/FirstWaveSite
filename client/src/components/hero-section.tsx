@@ -66,7 +66,7 @@ export function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="mailto:team@firstwave.asia?subject=Startup%20Support%20Inquiry%20-%20FirstWave"
+              href="mailto:firstwaveasia@gmail.com?subject=Startup%20Support%20Inquiry%20-%20FirstWave"
               className="bg-white text-purple-600 px-8 py-4 rounded-xl font-bold hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-lg"
             >
               <i className="fas fa-rocket mr-2"></i>
@@ -74,7 +74,7 @@ export function HeroSection() {
             </a>
 
             <a
-              href="mailto:team@firstwave.asia?subject=Investment%20Opportunity%20-%20FirstWave"
+              href="mailto:firstwaveasia@gmail.com?subject=Investment%20Opportunity%20-%20FirstWave"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-purple-600 transition-all duration-200 text-lg"
             >
               <i className="fas fa-handshake mr-2"></i>
