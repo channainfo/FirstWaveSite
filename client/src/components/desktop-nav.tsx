@@ -2,6 +2,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import firstwaveLogo from "../assets/logos/firstwave-logo.png";
 import TagManager from "react-gtm-module";
+import { useState, useEffect } from "react";
 
 const sections = ["home", "about", "how-it-works", "team", "impact", "contact"];
 
@@ -17,9 +18,20 @@ const sectionLabels = {
 export function DesktopNav() {
   const { theme, toggleTheme } = useTheme();
   const activeSection = useScrollSpy(sections);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Listen for scroll events to toggle logo size
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50); // Minimize logo after scrolling 50px
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
-
     TagManager.dataLayer({
       dataLayer: {
         event: "nav_click",
@@ -29,38 +41,40 @@ export function DesktopNav() {
 
     const section = document.getElementById(sectionId);
     if (section) {
-      const headerHeight = 80;
+      const headerHeight = 88; // Matches nav height (py-6)
       const offsetTop = section.offsetTop - headerHeight;
       window.scrollTo({
         top: offsetTop,
         behavior: "smooth",
       });
-      // Update the URL with the section ID (e.g., #home, #team)
       window.history.pushState(null, "", `#${sectionId}`);
     }
   };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-gray-200 dark:border-gray-700">
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center space-x-2">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-start relative">
+          {/* Logo Section */}
+          <div className="flex items-start">
             <a
               href="#home"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection("home");
               }}
-              className="block"
+              className="block relative z-10"
             >
               <img
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
-                className={`w-10 h-10 rounded-lg object-contain transition-transform duration-300 hover:scale-110 hover:rotate-6 ${theme === "dark" ? "filter brightness-125" : ""
-                  }`}
+                className={`object-contain rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 ${isScrolled ? "w-10 h-10 mt-0" : "w-20 h-20 -mb-12 mt-2"
+                  } ${theme === "dark" ? "filter brightness-125" : ""}`}
               />
             </a>
           </div>
+
+          {/* Navigation Section */}
           <nav className="flex items-center space-x-4 md:space-x-8">
             {/* Desktop Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
