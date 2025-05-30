@@ -81,7 +81,7 @@ export function Footer() {
                       e.preventDefault();
                       scrollToSection(section);
                     }}
-                    className={`transition-colors text-gray-300 font-semibold uppercase text-base ${isActive
+                    className={`transition-colors text-gray-300 font-semibold text-base ${isActive
                       ? "text-purple-500 dark:text-purple-400"
                       : "hover:text-purple-500 dark:hover:text-purple-400"
                       }`}

@@ -30,10 +30,8 @@ export function HeroSection() {
 
   const [ref, isInView] = useInView({ threshold: 0.1 });
 
-
   return (
-    <section id="home" ref={ref} className={`min-h-screen flex items-center justify-center gradient-bg dark:dark-gradient-bg relative overflow-hidden ${isInView ? "animate-wave-form" : "opacity-0"
-      }`}>
+    <section id="home" ref={ref} className={`min-h-screen flex items-center justify-center gradient-bg dark:dark-gradient-bg relative overflow-hidden ${isInView ? "animate-wave-form" : "opacity-0"}`}>
       {/* Wave Animation Background */}
       <WaveBackground theme={theme} />
 
@@ -58,7 +56,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="container mx-auto px-6 text-center text-white relative z-10 animate-fade-in">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl md:text-6xl font-bold mb-6 leading-tight">
+          <h1 className="text-2xl md:text-6xl font-bold mb-6 leading-tight">
             Empowering Cambodia's<br />
             <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">
               Next Generation
@@ -66,12 +64,24 @@ export function HeroSection() {
             <br />
             of Founders
           </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+
+          {/* Mobile: Short tagline, Desktop: Full tagline */}
+          <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto block md:hidden">
+            Supporting Cambodian Startups
+          </p>
+          <p className="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto hidden md:block">
             Bridging the Gap for Post-Acceleration Startups
           </p>
-          <p className="text-base md:text-lg mb-10 opacity-80 max-w-3xl mx-auto">
+
+          {/* Mobile: Condensed description, Desktop: Full description */}
+          <p className="text-base mb-8 opacity-80 max-w-2xl mx-auto block md:hidden">
+            FirstWave fuels post-acceleration Cambodian startups, helping founders tackle local problems and scale globally.
+
+          </p>
+          <p className="text-base md:text-lg mb-10 opacity-80 max-w-3xl mx-auto hidden md:block">
             Welcome to FirstWave, a Founders-First Initiative dedicated to nurturing the growth of post-acceleration startups in Cambodia. We believe in creating a thriving ecosystem where entrepreneurs can solve meaningful local problems and compete on the global stage.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="mailto:firstwaveasia@gmail.com?subject=Startup%20Support%20Inquiry%20-%20FirstWave"
@@ -80,7 +90,6 @@ export function HeroSection() {
               <i className="fas fa-rocket mr-2"></i>
               Apply for Support
             </a>
-
             <a
               href="mailto:firstwaveasia@gmail.com?subject=Investment%20Opportunity%20-%20FirstWave"
               className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-purple-600 transition-all duration-200 text-lg"
@@ -88,21 +97,17 @@ export function HeroSection() {
               <i className="fas fa-handshake mr-2"></i>
               Become an Investor
             </a>
-            <button
-              onClick={() => scrollToSection('about')}
-              className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-xl font-bold hover:bg-yellow-300 hover:shadow-lg transform hover:scale-105 transition-all duration-200 text-lg"
-            >
-              <i className="fas fa-info-circle mr-2"></i>
-              Learn More
-            </button>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce" style={{ zIndex: 11 }}>
-        <a onClick={() => scrollToSection('about')} href="#about">
-          <i className="fas fa-chevron-down text-white text-2xl opacity-70"></i>
+      <div className="absolute bottom-16 animate-bounce" style={{ zIndex: 11 }}>
+        <a onClick={() => scrollToSection('about')} href="#about" className="block left-1/2 transform -translate-x-1/2">
+          {/* Custom Mouse Scroll Wheel */}
+          <div className="w-6 h-10 border-2 border-white rounded-full opacity-70 relative">
+            <div className="w-1 h-3 bg-white rounded-full mx-auto mt-2 animate-pulse"></div>
+          </div>
         </a>
       </div>
     </section>

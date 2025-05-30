@@ -74,8 +74,8 @@ export function DesktopNav() {
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
                 className={`object-contain rounded-lg overflow-hidden dark:border-gray-700 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 hover:shadow-2xl ${isScrolled
-                  ? "w-12 h-12 mt-0 shadow-xl shadow-purple-500/30"
-                  : "w-20 h-20 -mb-12 mt-2 shadow-xl shadow-purple-500/30"
+                  ? "w-10 h-10 mt-0 shadow-xl shadow-purple-500/30"
+                  : "w-16 h-16 -mb-12 mt-2 shadow-xl shadow-purple-500/30"
                   } ${theme === "dark" ? "filter brightness-125" : ""}`}
               />
             </a>
@@ -98,8 +98,8 @@ export function DesktopNav() {
                       scrollToSection(section);
                     }}
                     className={`transition-colors ${isActive
-                      ? "text-purple-500 dark:text-purple-400 font-semibold uppercase"
-                      : "hover:text-purple-500 dark:hover:text-purple-400 font-semibold uppercase"
+                      ? "text-purple-500 dark:text-purple-400 font-semibold"
+                      : "hover:text-purple-500 dark:hover:text-purple-400 font-semibold"
                       }`}
                   >
                     {label}
@@ -125,7 +125,7 @@ export function DesktopNav() {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="px-4 py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? (

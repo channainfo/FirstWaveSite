@@ -38,7 +38,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Langda Chea",
-    role: "Chief Operating Officer (COO)",
+    // role: "Chief Operating Officer (COO)",
+    role: "General Partner",
     initials: "LC",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFvxPhYR2Im2w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730798062107?e=1753920000&v=beta&t=08Mov0fpUYq42EzWeZtWIz40Xc0t6NhRfqeZgo68Gco",
     bio: "One of Cambodia's pioneers in building online booking platforms and digital payment solutions. As the Founder and CEO of BookMeBus, he transformed the transportation industry by digitizing operations.",
@@ -51,7 +52,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Jay Kong",
-    role: "Chief Investment Officer (CIO)",
+    // role: "Chief Investment Officer (CIO)",
+    role: "General Partner",
     initials: "JK",
     profilePic: "https://media.licdn.com/dms/image/v2/C5103AQFu6MaCJh7h0w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1562862174622?e=1753920000&v=beta&t=Q4G_5Pxj1o98kj2qGcwflyYG8dIc2PptWZfUthstg8A",
     bio: "An experienced founder with an impressive track record in fundraising, marketing, public relations, and large-scale project execution. His leadership has been instrumental in driving transformative initiatives.",
@@ -64,6 +66,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Sophorth Khuon",
     role: "Chief Financial Officer (CFO)",
+    // role: "General Partner",
     initials: "SK",
     profilePic: "https://media.licdn.com/dms/image/v2/C5103AQGy1bM7_pZi9A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1517473490713?e=1753920000&v=beta&t=c9ZOL0JFOzuKRmuhunLOyUlK76j9D7njvVKo1EJwm2U",
     bio: "CEO and co-founder of Morakot Technology, a leading fintech company. The company manages over $1.5 billion in loan portfolios and operates in Cambodia, Singapore, Thailand, and Myanmar.",
@@ -76,7 +79,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Leap Sok",
-    role: "Chief Business Officer (CBO)",
+    // role: "Chief Business Officer (CBO)",
+    role: "General Partner",
     initials: "LS",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFfVUePN_A5oA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1702098282543?e=1753920000&v=beta&t=CqlnG0_XD9sl_lkviIbZsCXnwOg82phUrK2jhmpXO_s",
     bio: "As an Investment Analyst, Leap contributes to evaluating the deal flow of founders and startups, meeting with stakeholders and potential investors for fundraising.",
@@ -90,7 +94,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Chhayheng Lov",
-    role: "Chief Marketing Officer (CMO)",
+    // role: "Chief Marketing Officer (CMO)",
+    role: "General Partner",
     initials: "CL",
     profilePic: "https://media.licdn.com/dms/image/v2/C5103AQE2tiw8kwNiBw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1540792005922?e=1753920000&v=beta&t=amc0s4d1qlKAh1-9rukqUhb0XolnhnM3tRx1cud-qnc",
     bio: "With over a decade of experience running eCamShopping, Heng specializes in strategic planning and digital marketing, combining data-driven insights with creative execution.",
@@ -104,6 +109,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Darareaksmey Saing",
     role: "Chief Legal Officer (CLO)",
+    // role: "General Partner",
     initials: "DS",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQGQYVSk6cODUQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1725381334887?e=1753920000&v=beta&t=YgStj45Y2QHKbQ8CgAslsDw0XBGB9XfAK6qZgsNZIDU",
     bio: "A lawyer and entrepreneur with expertise in healthcare, education, and asset management. He is dedicated to fostering growth and creating impactful opportunities.",
@@ -115,7 +121,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Bill Sokhy Chea",
-    role: "Chief Program Officer (CPO)",
+    // role: "Chief Program Officer (CPO)",
+    role: "General Partner",
     initials: "BC",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQGjaQ7CdzVjoA/profile-displayphoto-shrink_400_400/B56ZX05mCqHEAg-/0/1743570494589?e=1753920000&v=beta&t=TzD_B5bTyQxBJzMtXjc52pHAyZkXSe1WW60cahyXnDU",
     bio: "Director and Community Leader of TEDxPhnomPenh, Startup Grind Cambodia, and other dynamic initiatives. Co-founder of OMOHUB and Bluu Deck.",
@@ -126,14 +133,16 @@ const teamMembers: TeamMember[] = [
       custom: "https://tedxphnompenh.com",
     },
   },
+
   {
     name: "Channa Ly",
-    role: "Chief Technology Officer (CTO)",
+    // role: "Chief Technology Officer (CTO)",
+    role: "General Partner",
     initials: "CY",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFth0xhVIMsgQ/profile-displayphoto-shrink_400_400/B56Zce.qLHGoAg-/0/1748571433335?e=1753920000&v=beta&t=f0mkokLbOJNVx7aqd4On6kK46a-qRqYYfKQTG8rz0lw",
     bio: "A seasoned engineer and entrepreneur with a passion for building scalable, real-world platforms. As a co-founder of BookMeBus, he brings deep expertise in backend systems, infrastructure, and product development. He has international experience working remotely with talented teams across the globe. Outside of work, he enjoys exploring AI and blockchain through open-source side projects.",
     readmore: true,
-    skills: ["SaaS Development", "Web3 & AI", "AWS Cloud", "SSO", "API", "DevOps"],
+    skills: ["SaaS", "Web3 & AI", "AWS Cloud", "DevOps", "SSO", "API", "BI", "Product Development"],
     socialLinks: {
       linkedin: "https://linkedin.com/in/channaly",
       twitter: "https://twitter.com/channaly",
