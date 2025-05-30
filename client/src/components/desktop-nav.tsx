@@ -59,7 +59,7 @@ export function DesktopNav() {
         className={`container mx-auto px-4 transition-all duration-300 ease-in-out ${isScrolled ? "py-2" : "py-4"
           }`}
       >
-        <div className="flex justify-between items-start relative">
+        <div className="flex justify-between items-center relative">
           {/* Logo Section */}
           <div className="flex items-start">
             <a
@@ -74,8 +74,8 @@ export function DesktopNav() {
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
                 className={`object-contain rounded-lg overflow-hidden dark:border-gray-700 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 hover:shadow-2xl ${isScrolled
-                  ? "w-10 h-10 mt-0 shadow-xl shadow-purple-500/30"
-                  : "w-16 h-16 -mb-12 mt-2 shadow-xl shadow-purple-500/30"
+                  ? "w-14 h-14 mt-0 shadow-xl shadow-purple-500/30"
+                  : "w-20 h-20 -mb-12 mt-2 shadow-xl shadow-purple-500/30"
                   } ${theme === "dark" ? "filter brightness-125" : ""}`}
               />
             </a>
@@ -109,14 +109,14 @@ export function DesktopNav() {
             </div>
 
             {/* Mobile "Contact Us" Link */}
-            <div className="md:hidden flex items-center space-x-2">
+            <div className="md:hidden flex items-center space-x-1">
               <a
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
                   scrollToSection("contact");
                 }}
-                className="bg-purple-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-600 transition-colors text-sm"
+                className="bg-purple-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-purple-600 transition-colors text-sm"
               >
                 Contact Us
               </a>

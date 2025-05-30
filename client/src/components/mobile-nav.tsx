@@ -24,7 +24,8 @@ export function MobileNav() {
 
     const section = document.getElementById(sectionId);
     if (section) {
-      const offsetTop = section.offsetTop;
+      const headerHeight = 80; // Match HeroSection for consistent scrolling
+      const offsetTop = section.offsetTop - headerHeight;
       window.scrollTo({
         top: offsetTop,
         behavior: "smooth",
@@ -33,8 +34,20 @@ export function MobileNav() {
   };
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-gray-200 dark:border-gray-700 mobile-nav-bottom">
-      <div className="flex justify-around items-center py-2">
+    <nav
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-gray-200 dark:border-gray-700"
+      style={{
+        '--safe-area-inset-bottom': 'env(safe-area-inset-bottom, 0px)',
+        paddingBottom: 'var(--safe-area-inset-bottom)',
+        background: 'inherit', // Ensure background extends into safe area
+      } as React.CSSProperties}
+    >
+      <div
+        className="flex justify-around items-center py-2"
+        style={{
+          paddingBottom: 'calc(8px + var(--safe-area-inset-bottom))', // Extra padding for content
+        }}
+      >
         {sections.map((section) => {
           const { icon, label } = sectionData[section as keyof typeof sectionData];
           const isActive = activeSection === section;
