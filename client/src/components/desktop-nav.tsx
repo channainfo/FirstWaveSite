@@ -31,6 +31,9 @@ export function DesktopNav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Dynamically calculate headerHeight based on padding
+  const headerHeight = isScrolled ? 64 : 80; // py-2: 8+8+~48, py-4: 16+16+~48
+
   const scrollToSection = (sectionId: string) => {
     TagManager.dataLayer({
       dataLayer: {
@@ -41,7 +44,6 @@ export function DesktopNav() {
 
     const section = document.getElementById(sectionId);
     if (section) {
-      const headerHeight = 88; // Matches nav height (py-6)
       const offsetTop = section.offsetTop - headerHeight;
       window.scrollTo({
         top: offsetTop,
@@ -53,7 +55,10 @@ export function DesktopNav() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-gray-200 dark:border-gray-700">
-      <div className="container mx-auto px-4 py-4">
+      <div
+        className={`container mx-auto px-4 transition-all duration-300 ease-in-out ${isScrolled ? "py-2" : "py-4"
+          }`}
+      >
         <div className="flex justify-between items-start relative">
           {/* Logo Section */}
           <div className="flex items-start">
@@ -68,7 +73,9 @@ export function DesktopNav() {
               <img
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
-                className={`object-contain rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 ${isScrolled ? "w-12 h-12 mt-0" : "w-20 h-20 -mb-12 mt-2"
+                className={`object-contain rounded-lg overflow-hidden dark:border-gray-700 transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 hover:shadow-2xl ${isScrolled
+                  ? "w-12 h-12 mt-0 shadow-xl shadow-purple-500/30"
+                  : "w-20 h-20 -mb-12 mt-2 shadow-xl shadow-purple-500/30"
                   } ${theme === "dark" ? "filter brightness-125" : ""}`}
               />
             </a>

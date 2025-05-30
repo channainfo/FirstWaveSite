@@ -51,7 +51,7 @@ export function Footer() {
             }}
             className="block"
           >
-            <div className="bg-white dark:bg-white rounded-lg h-20 flex items-center justify-center p-3">
+            <div className="bg-white dark:bg-white rounded-lg h-20 flex items-center justify-center p-3 shadow-xl shadow-purple-500/30">
               <img
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
