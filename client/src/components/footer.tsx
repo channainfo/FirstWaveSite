@@ -1,4 +1,5 @@
 import { useTheme } from "@/hooks/use-theme";
+import { useScrollSpy } from "@/hooks/use-scroll-spy";
 import firstwaveLogo from "../assets/logos/firstwave-logo-landscape.png";
 import TagManager from "react-gtm-module";
 
@@ -15,10 +16,9 @@ const sectionLabels = {
 
 export function Footer() {
   const { theme } = useTheme();
+  const activeSection = useScrollSpy(sections);
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-
     TagManager.dataLayer({
       dataLayer: {
         event: "bottom_nav_click",
@@ -26,8 +26,11 @@ export function Footer() {
       },
     });
 
+    const section = document.getElementById(sectionId);
     if (section) {
-      const headerHeight = 80;
+      // Match DesktopNav's dynamic headerHeight (64 when scrolled, 80 when not scrolled)
+      const isScrolled = window.scrollY > 50;
+      const headerHeight = isScrolled ? 64 : 80;
       const offsetTop = section.offsetTop - headerHeight;
       window.scrollTo({
         top: offsetTop,
@@ -51,11 +54,11 @@ export function Footer() {
             }}
             className="block"
           >
-            <div className="bg-white dark:bg-white rounded-lg h-20 flex items-center justify-center p-3 shadow-xl shadow-purple-500/30">
+            <div className="bg-white dark:bg-white rounded-lg h-20 flex items-center justify-center p-3 shadow-xl shadow-purple-500/30 transition-transform duration-300 hover:scale-110 hover:rotate-6 ">
               <img
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
-                className={`h-12 rounded-lg object-contain transition-transform duration-300 hover:scale-110 hover:rotate-6 ${theme === "dark" ? "filter brightness-125" : ""
+                className={`h-12 rounded-lg object-contain ${theme === "dark" ? "filter brightness-125" : ""
                   }`}
               />
             </div>
@@ -68,6 +71,8 @@ export function Footer() {
           <ul className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {sections.map((section) => {
               const label = sectionLabels[section as keyof typeof sectionLabels];
+              const isActive = activeSection === section;
+
               return (
                 <li key={section}>
                   <a
@@ -76,7 +81,10 @@ export function Footer() {
                       e.preventDefault();
                       scrollToSection(section);
                     }}
-                    className="text-gray-300 hover:text-white transition-colors duration-200 text-base sm:text-lg font-medium uppercase"
+                    className={`transition-colors text-gray-300 font-semibold uppercase text-base ${isActive
+                      ? "text-purple-500 dark:text-purple-400"
+                      : "hover:text-purple-500 dark:hover:text-purple-400"
+                      }`}
                   >
                     {label}
                   </a>

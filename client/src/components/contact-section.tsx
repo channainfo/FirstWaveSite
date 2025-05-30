@@ -63,16 +63,22 @@ export function ContactSection() {
           </div>
 
           <div className="flex justify-center space-x-6">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-200 transform hover:scale-110"
-                aria-label={link.label}
-              >
-                <i className={`${link.icon} text-2xl`}></i>
-              </a>
-            ))}
+            {
+              /** 
+                {
+                  socialLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center hover:bg-opacity-30 transition-all duration-200 transform hover:scale-110"
+                      aria-label={link.label}
+                    >
+                      <i className={`${link.icon} text-2xl`}></i>
+                    </a>
+                  ))
+                }
+               **/
+            }
           </div>
         </div>
       </div>
