@@ -65,8 +65,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Sophorth Khuon",
-    role: "Chief Financial Officer (CFO)",
-    // role: "General Partner",
+    // role: "Chief Financial Officer (CFO)",
+    role: "General Partner",
     initials: "SK",
     profilePic: "https://media.licdn.com/dms/image/v2/C5103AQGy1bM7_pZi9A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1517473490713?e=1753920000&v=beta&t=c9ZOL0JFOzuKRmuhunLOyUlK76j9D7njvVKo1EJwm2U",
     bio: "CEO and co-founder of Morakot Technology, a leading fintech company. The company manages over $1.5 billion in loan portfolios and operates in Cambodia, Singapore, Thailand, and Myanmar.",
@@ -108,8 +108,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Darareaksmey Saing",
-    role: "Chief Legal Officer (CLO)",
-    // role: "General Partner",
+    // role: "Chief Legal Officer (CLO)",
+    role: "General Partner",
     initials: "DS",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQGQYVSk6cODUQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1725381334887?e=1753920000&v=beta&t=YgStj45Y2QHKbQ8CgAslsDw0XBGB9XfAK6qZgsNZIDU",
     bio: "A lawyer and entrepreneur with expertise in healthcare, education, and asset management. He is dedicated to fostering growth and creating impactful opportunities.",
