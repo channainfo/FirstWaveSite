@@ -68,7 +68,7 @@ export function DesktopNav() {
               <img
                 src={firstwaveLogo}
                 alt="FirstWave Logo"
-                className={`object-contain rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 ${isScrolled ? "w-10 h-10 mt-0" : "w-20 h-20 -mb-12 mt-2"
+                className={`object-contain rounded-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 ease-in-out transform hover:scale-110 hover:rotate-6 ${isScrolled ? "w-12 h-12 mt-0" : "w-20 h-20 -mb-12 mt-2"
                   } ${theme === "dark" ? "filter brightness-125" : ""}`}
               />
             </a>
