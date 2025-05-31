@@ -5,6 +5,7 @@ import TagManager from "react-gtm-module";
 interface TeamMember {
   name: string;
   role: string;
+  responsibility: string;
   initials: string;
   profilePic?: string;
   bio: string;
@@ -23,7 +24,8 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     name: "Vireak Chea",
-    role: "Chief Executive Officer (CEO)",
+    role: "Managing Partner",
+    responsibility: "Oversees firm-wide strategy, LP/stakeholder relations, and major institutional partnerships.",
     initials: "VC",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFZe4FQmt7r-Q/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1704175582143?e=1753920000&v=beta&t=Jc3-zofluGnwVeXAJ7nGPsn4b-nS4SaKtdbp_IjizAU",
     bio: "An experienced founder with a proven track record in fundraising and a knack for problem-solving. Renowned for his networking prowess and collaborative spirit, he excels at uniting teams around shared goals.",
@@ -33,13 +35,12 @@ const teamMembers: TeamMember[] = [
       linkedin: "https://linkedin.com/in/vireakchea",
       twitter: "https://twitter.com/vireakchea",
       website: "https://pilltech.com.kh",
-
     },
   },
   {
     name: "Langda Chea",
-    // role: "Chief Operating Officer (COO)",
-    role: "General Partner",
+    role: "Partner, Public Sector & Strategic Initiatives",
+    responsibility: "Leads government engagement, cross-sector program design, and long-term institutional alliances.",
     initials: "LC",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFvxPhYR2Im2w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1730798062107?e=1753920000&v=beta&t=08Mov0fpUYq42EzWeZtWIz40Xc0t6NhRfqeZgo68Gco",
     bio: "One of Cambodia's pioneers in building online booking platforms and digital payment solutions. As the Founder and CEO of BookMeBus, he transformed the transportation industry by digitizing operations.",
@@ -51,22 +52,40 @@ const teamMembers: TeamMember[] = [
     },
   },
   {
-    name: "Jay Kong",
-    // role: "Chief Investment Officer (CIO)",
-    role: "General Partner",
-    initials: "JK",
-    profilePic: "https://media.licdn.com/dms/image/v2/C5103AQFu6MaCJh7h0w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1562862174622?e=1753920000&v=beta&t=Q4G_5Pxj1o98kj2qGcwflyYG8dIc2PptWZfUthstg8A",
-    bio: "An experienced founder with an impressive track record in fundraising, marketing, public relations, and large-scale project execution. His leadership has been instrumental in driving transformative initiatives.",
-    readmore: false,
-    skills: ["SEA Games", "Beyond the Game", "Cultural Impact"],
+    name: "Channa Ly",
+    role: "Partner, Technology & Product Innovation",
+    responsibility: "Advises portfolio startups on tech stack, scalability, and emerging technologies (Web3, AI, SaaS).",
+    initials: "CY",
+    profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFth0xhVIMsgQ/profile-displayphoto-shrink_400_400/B56Zce.qLHGoAg-/0/1748571433335?e=1753920000&v=beta&t=f0mkokLbOJNVx7aqd4On6kK46a-qRqYYfKQTG8rz0lw",
+    bio: "A seasoned engineer and entrepreneur with a passion for building scalable, real-world platforms. As a co-founder of BookMeBus, he brings deep expertise in backend systems, infrastructure, and product development. He has international experience working remotely with talented teams across the globe. Outside of work, he enjoys exploring AI and blockchain through open-source side projects.",
+    readmore: true,
+    skills: ["SaaS", "Web3 & AI", "AWS Cloud", "DevOps", "SSO", "API", "BI", "Product Development"],
     socialLinks: {
-      linkedin: "https://linkedin.com/in/jaythekong",
+      linkedin: "https://linkedin.com/in/channaly",
+      twitter: "https://twitter.com/channaly",
+      custom: "https://channaly.medium.com",
+      website: "https://bookmebus.com/",
+      github: "https://github.com/channainfo",
+    },
+  },
+  {
+    name: "Leap Sok",
+    role: "Partner, Capital & Investment Strategy",
+    responsibility: "Drives capital deployment, investor matchmaking, and financial modeling for founders.",
+    initials: "LS",
+    profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFfVUePN_A5oA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1702098282543?e=1753920000&v=beta&t=CqlnG0_XD9sl_lkviIbZsCXnwOg82phUrK2jhmpXO_s",
+    bio: "As an Investment Analyst, Leap contributes to evaluating the deal flow of founders and startups, meeting with stakeholders and potential investors for fundraising.",
+    readmore: false,
+    skills: ["Pitch Deck", "Financial Projection", "Team Management"],
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/leap-sok",
+      website: "https://www.sala.tech",
     },
   },
   {
     name: "Sophorth Khuon",
-    // role: "Chief Financial Officer (CFO)",
-    role: "General Partner",
+    role: "Partner, Fintech & Digital Infrastructure",
+    responsibility: "Provides subject-matter expertise and mentorship to startups in finance and core systems.",
     initials: "SK",
     profilePic: "https://media.licdn.com/dms/image/v2/C5103AQGy1bM7_pZi9A/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1517473490713?e=1753920000&v=beta&t=c9ZOL0JFOzuKRmuhunLOyUlK76j9D7njvVKo1EJwm2U",
     bio: "CEO and co-founder of Morakot Technology, a leading fintech company. The company manages over $1.5 billion in loan portfolios and operates in Cambodia, Singapore, Thailand, and Myanmar.",
@@ -78,24 +97,36 @@ const teamMembers: TeamMember[] = [
     },
   },
   {
-    name: "Leap Sok",
-    // role: "Chief Business Officer (CBO)",
-    role: "General Partner",
-    initials: "LS",
-    profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFfVUePN_A5oA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1702098282543?e=1753920000&v=beta&t=CqlnG0_XD9sl_lkviIbZsCXnwOg82phUrK2jhmpXO_s",
-    bio: "As an Investment Analyst, Leap contributes to evaluating the deal flow of founders and startups, meeting with stakeholders and potential investors for fundraising.",
+    name: "Bill Sokhy Chea",
+    role: "Partner, Community & Ecosystem Development",
+    responsibility: "Leads brand, community engagement, and founder programming across all FirstWave touchpoints.",
+    initials: "BC",
+    profilePic: "https://media.licdn.com/dms/image/v2/D5603AQGjaQ7CdzVjoA/profile-displayphoto-shrink_400_400/B56ZX05mCqHEAg-/0/1743570494589?e=1753920000&v=beta&t=TzD_B5bTyQxBJzMtXjc52pHAyZkXSe1WW60cahyXnDU",
+    bio: "Director and Community Leader of TEDxPhnomPenh, Startup Grind Cambodia, and other dynamic initiatives. Co-founder of OMOHUB and Bluu Deck.",
     readmore: false,
-    skills: ["Pitch Deck", "Financial Projection", "Team Management"],
+    skills: ["Event Management", "Community Leadership", "Business Development"],
     socialLinks: {
-      linkedin: "https://linkedin.com/in/leap-sok",
-      website: "https://www.sala.tech",
-
+      linkedin: "https://linkedin.com/in/billchea",
+      custom: "https://tedxphnompenh.com",
+    },
+  },
+  {
+    name: "Jay Kong",
+    role: "Partner, Fundraising & Visibility",
+    responsibility: "Focuses on investment relations, capital campaigns, and storytelling across local and regional ecosystems.",
+    initials: "JK",
+    profilePic: "https://media.licdn.com/dms/image/v2/C5103AQFu6MaCJh7h0w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1562862174622?e=1753920000&v=beta&t=Q4G_5Pxj1o98kj2qGcwflyYG8dIc2PptWZfUthstg8A",
+    bio: "An experienced founder with an impressive track record in fundraising, marketing, public relations, and large-scale project execution. His leadership has been instrumental in driving transformative initiatives.",
+    readmore: false,
+    skills: ["SEA Games", "Beyond the Game", "Cultural Impact"],
+    socialLinks: {
+      linkedin: "https://linkedin.com/in/jaythekong",
     },
   },
   {
     name: "Chhayheng Lov",
-    // role: "Chief Marketing Officer (CMO)",
-    role: "General Partner",
+    role: "Partner, Growth & Digital Strategy",
+    responsibility: "Supports startups on growth marketing, go-to-market execution, and digital campaign strategy.",
     initials: "CL",
     profilePic: "https://media.licdn.com/dms/image/v2/C5103AQE2tiw8kwNiBw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1540792005922?e=1753920000&v=beta&t=amc0s4d1qlKAh1-9rukqUhb0XolnhnM3tRx1cud-qnc",
     bio: "With over a decade of experience running eCamShopping, Heng specializes in strategic planning and digital marketing, combining data-driven insights with creative execution.",
@@ -108,8 +139,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Darareaksmey Saing",
-    // role: "Chief Legal Officer (CLO)",
-    role: "General Partner",
+    role: "Partner, Legal & Governance Affairs",
+    responsibility: "Provides legal structuring, compliance frameworks, and corporate governance advisory for founders.",
     initials: "DS",
     profilePic: "https://media.licdn.com/dms/image/v2/D5603AQGQYVSk6cODUQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1725381334887?e=1753920000&v=beta&t=YgStj45Y2QHKbQ8CgAslsDw0XBGB9XfAK6qZgsNZIDU",
     bio: "A lawyer and entrepreneur with expertise in healthcare, education, and asset management. He is dedicated to fostering growth and creating impactful opportunities.",
@@ -117,38 +148,6 @@ const teamMembers: TeamMember[] = [
     skills: ["Corporate Governance", "Problem Solving", "Team Management"],
     socialLinks: {
       linkedin: "https://linkedin.com/in/darareaksmey-saing-a16719b5",
-    },
-  },
-  {
-    name: "Bill Sokhy Chea",
-    // role: "Chief Program Officer (CPO)",
-    role: "General Partner",
-    initials: "BC",
-    profilePic: "https://media.licdn.com/dms/image/v2/D5603AQGjaQ7CdzVjoA/profile-displayphoto-shrink_400_400/B56ZX05mCqHEAg-/0/1743570494589?e=1753920000&v=beta&t=TzD_B5bTyQxBJzMtXjc52pHAyZkXSe1WW60cahyXnDU",
-    bio: "Director and Community Leader of TEDxPhnomPenh, Startup Grind Cambodia, and other dynamic initiatives. Co-founder of OMOHUB and Bluu Deck.",
-    readmore: false,
-    skills: ["Event Management", "Community Leadership", "Business Development"],
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/billchea",
-      custom: "https://tedxphnompenh.com",
-    },
-  },
-
-  {
-    name: "Channa Ly",
-    // role: "Chief Technology Officer (CTO)",
-    role: "General Partner",
-    initials: "CY",
-    profilePic: "https://media.licdn.com/dms/image/v2/D5603AQFth0xhVIMsgQ/profile-displayphoto-shrink_400_400/B56Zce.qLHGoAg-/0/1748571433335?e=1753920000&v=beta&t=f0mkokLbOJNVx7aqd4On6kK46a-qRqYYfKQTG8rz0lw",
-    bio: "A seasoned engineer and entrepreneur with a passion for building scalable, real-world platforms. As a co-founder of BookMeBus, he brings deep expertise in backend systems, infrastructure, and product development. He has international experience working remotely with talented teams across the globe. Outside of work, he enjoys exploring AI and blockchain through open-source side projects.",
-    readmore: true,
-    skills: ["SaaS", "Web3 & AI", "AWS Cloud", "DevOps", "SSO", "API", "BI", "Product Development"],
-    socialLinks: {
-      linkedin: "https://linkedin.com/in/channaly",
-      twitter: "https://twitter.com/channaly",
-      custom: "https://channaly.medium.com",
-      website: "https://bookmebus.com/",
-      github: "https://github.com/channainfo",
     },
   },
 ];
@@ -232,8 +231,11 @@ export function TeamSection() {
                       </div>
                     </div>
                     <h3 className="text-xl font-bold text-center mb-2">{member.name}</h3>
-                    <p className="text-purple-500 dark:text-purple-400 text-center font-semibold mb-4">
+                    <p className="text-purple-500 dark:text-purple-400 text-center font-semibold mb-2">
                       {member.role}
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400 text-center text-sm mb-4 italic">
+                      {member.responsibility}
                     </p>
                     <div
                       className="text-sm text-gray-600 dark:text-gray-400 mb-4 pl-4 hover:pl-5 hover:bg-gray-100 dark:hover:bg-slate-700 hover:border-l-4 hover:border-purple-500 dark:hover:border-purple-400 hover:scale-[1.01] transition-all duration-200"

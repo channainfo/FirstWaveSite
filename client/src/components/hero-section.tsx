@@ -33,7 +33,7 @@ export function HeroSection() {
   return (
     <section id="home" ref={ref} className={`min-h-screen flex items-center justify-center gradient-bg dark:dark-gradient-bg relative overflow-hidden ${isInView ? "animate-wave-form" : "opacity-0"}`}>
       {/* Wave Animation Background */}
-      <WaveBackground theme={theme} />
+      <WaveBackground />
 
       {/* Background Image */}
       <div className="absolute inset-0 opacity-10" style={{ zIndex: 2 }}>
